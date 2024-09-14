@@ -21,6 +21,44 @@ export async function listaTurma() {
     return registro;
 }
 
+
+export async function buscarTurma(id) {
+    let comando = `
+         select id_turma,
+                nm_turma,
+                ds_curso,
+                nr_ano_letivo,
+                qtd_capacidade,
+                bt_ativo,
+                dt_inclusao
+         from tb_turma
+         where id_turma = ?
+    `;
+    
+    let registro = await con.query(comando, [id]);
+    let info = registro[0];
+    return info;
+}
+
+
+export async function consultarAnoCurso (ano, curso) {
+    let comando = `
+         select id_turma,
+                nm_turma,
+                ds_curso,
+                nr_ano_letivo,
+                qtd_capacidade,
+                bt_ativo,
+                dt_inclusao
+         from tb_turma
+         where nr_ano_letivo = ? and ds_curso = ?
+    `;
+
+    let registro = await con.query(comando, [ano, curso]);
+    let info = registro[0];
+    return info;
+}
+
 export async function updateTurma(id, turmaOBJ) {
     let comando = `
         update tb_turma set

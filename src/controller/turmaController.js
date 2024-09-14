@@ -1,4 +1,4 @@
-import { inserirTurma, listaTurma, updateTurma, deleteTurma } from "../repository/tumaRepository.js";
+import { inserirTurma, listaTurma, updateTurma, deleteTurma, buscarTurma, consultarAnoCurso } from "../repository/tumaRepository.js";
 import { Router } from "express";
 const endpoint = Router();
 
@@ -21,7 +21,7 @@ endpoint.post('/inserir', async (req, resp) => {
 })
 
 
-endpoint.get('/consultar/', async (req, resp) => {
+endpoint.get('/consultar', async (req, resp) => {
     try {
         let registro = await listaTurma();
         resp.send(registro)
@@ -33,6 +33,19 @@ endpoint.get('/consultar/', async (req, resp) => {
     }
 })
 
+endpoint.get('/buscar/turma', async (req, resp) => {
+    let id = req.query.id;
+    let registro = await buscarTurma(id);
+    resp.send(registro)
+})
+
+endpoint.get('/turma/:ano/curso', async (req, resp) => {
+    let ano = req.params.ano;
+    let curso = req.query.curso;
+
+    let registro = await consultarAnoCurso(ano, curso);
+    resp.send(registro);
+})
 
 endpoint.put('/inserir/:id', async (req, resp) => {
     try {
@@ -77,5 +90,7 @@ endpoint.delete('/delete/:id', async (req, resp) => {
         })
     }
 })
+
+
 
 export default endpoint;
