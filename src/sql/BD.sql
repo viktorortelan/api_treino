@@ -61,3 +61,7 @@ SELECT ma.id_matricula_aluno,
 		t.ds_curso
 FROM tb_matricula_aluno ma
 JOIN tb_turma t ON ma.id_turma = t.id_turma;
+
+
+
+--....--
